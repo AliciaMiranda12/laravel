@@ -13,8 +13,8 @@ use App\Http\Middleware\LogAcessoMiddleware;
 |
 */
 
-Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
-
-
-
+Route::get('/', [App\Http\Controllers\Principal::class, 'index'])->name('principal');
+Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre'])->name('sobre');
+Route::get('/contato', [App\Http\Controllers\Contato::class, 'contato'])->name('contato');
+Route::get('/cursos', [App\Http\Controllers\Cursos::class, 'cursos'])->name('cursos');
 
