@@ -14,7 +14,7 @@ use App\Http\Middleware\LogAcessoMiddleware;
 */
 
 Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
-
-
+Route::get('/aluno/show', [App\Http\Controllers\Aluno::class, 'show'])->name('aluno.show');
+Route::get('/professor/show', [App\Http\Controllers\Professor::class, 'showProfessor'])->name('professor.show');
 
 
