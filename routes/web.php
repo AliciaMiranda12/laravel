@@ -29,3 +29,9 @@ Route::prefix('/professor')->group(function(){
     Route::get('/index', [App\Http\Controllers\ProfessorController::class, 'index'])->name('professor.index');
     Route::post('/add', [App\Http\Controllers\ProfessorController::class, 'add'])->name('professor.add');
 }); 
+
+Route::prefix('/componente')->group(function(){
+    Route::get('/index', [App\Http\Controllers\ComponenteController::class, 'index'])->name('componente.index');
+    Route::post('/add', [App\Http\Controllers\ComponenteController::class, 'add'])->name('componente.add');
+}); 
+

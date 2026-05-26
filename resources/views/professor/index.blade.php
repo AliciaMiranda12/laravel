@@ -1,5 +1,6 @@
 <div>
-    <form action="{{ route('professor.add')}}" method="post">
+    <form action="{{ route('professor.add') }}" method="post">
+        @csrf
         <label for="nome">Nome</label>
         <input type="text" name="nome" id="nome">
 
