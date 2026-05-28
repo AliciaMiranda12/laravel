@@ -7,10 +7,10 @@
         
 
         <label for="hora_inicio">Hora inicio</label>
-        <input type="datetime" name="hora_inicio" id="hora_inicio">
+        <input type="datetime-local" name="hora_inicio" id="hora_inicio">
         
         <label for="hora_fim">Hora fim</label>
-        <input type="datetime" name="hora_fim" id="hora_fim">
+        <input type="datetime-local" name="hora_fim" id="hora_fim">
 
         <button type="submit">Salvar</button>
         @isset($success)
@@ -18,11 +18,11 @@
         @endisset
     </form>
 
-    @isset($cursos)
-            @foreach($cursos as $curso)
-                <h3>{{ $nome->nome }}</h3>
-                <h3>{{ $hora_inicio->hora_inicio }}</h3>
-                <h3>{{ $hora_fim->hora_fim }}</h3>
+    @isset($componentes)
+            @foreach($componentes as $componente)
+                <h3>{{ $componente->nome }}</h3>
+                <h3>{{ $componente->hora_inicio }}</h3>
+                <h3>{{ $componente->hora_fim }}</h3>
             @endforeach
     @endisset
 </div>
