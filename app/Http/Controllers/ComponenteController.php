@@ -28,4 +28,18 @@ class ComponenteController extends Controller
         return view('componente.index', ['success'=>'Removido!', 'componentes'=>$componente::all()]);
 
     }
+    function atualizar(string $id) {
+        $componente = new \App\Models\ComponenteModel();
+        $componente = $componente::find($id);
+
+        return view('componente.atualizar', ['componente'=>$componente]);
+    }
+
+    function save(Request $dados) {
+        $componente = new \App\Models\ComponenteModel();
+        $componente = $componente::find($dados->id);
+        $componente->update($dados->all());
+
+        return view('componente.index', ['success'=>'Atualizado!', 'componentes'=>$componente::all()]);
+    }
 }

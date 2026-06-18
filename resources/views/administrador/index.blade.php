@@ -3,24 +3,31 @@
         @csrf
         <label for="nome">Nome</label>
         <input type="text" name="nome" id="nome">
+        <br>
 
         <label for="email">Email</label>
         <input type="email" name="email" id="email">
+        <br>
 
         <label for="telefone">Telefone</label>
         <input type="text" name="telefone" id="telefone">
+        <br>
 
         <label for="cpf">CPF</label>
         <input type="text" name="cpf" id="cpf">
+        <br>
 
         <label for="usuario">Usuario</label>
         <input type="text" name="usuario" id="usuario">
+        <br>
 
         <label for="senha">Senha</label>
         <input type="password" name="senha" id="senha">
+        <br>
 
         <label for="status">Status</label>
         <input type="text" name="status" id="status">
+        <br>
 
         <button type="submit">Salvar</button>
         @isset($success)
