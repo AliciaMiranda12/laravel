@@ -40,6 +40,6 @@ class CursoController extends Controller
         $curso = $curso::find($dados->id);
         $curso->update($dados->all());
 
-        return view('curso.index', ['success'=>'Atualizado!', 'cursos'=>$curso::all()]);
+        return view('curso.inicial', ['success'=>'Atualizado!', 'cursos'=>$curso::all()]);
     }
 }

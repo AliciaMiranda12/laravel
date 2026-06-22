@@ -39,6 +39,11 @@
     <table border="1">
         <tr>
             <td>Nome do Adm</td>
+            <td>Email</td>
+            <td>Telefone</td>
+            <td>CPF</td>
+            <td>Usuario</td>
+            <td>Status</td>
             <td colspan="2">Ações</td>
         </tr>
         @isset($administradores)
@@ -48,12 +53,29 @@
                             <h3>{{ $administrador->nome }}</h3>
                         </td>
                         <td>
+                            <h3>{{ $administrador->email }}</h3>
+                        </td>
+                        <td>
+                            <h3>{{ $administrador->telefone }}</h3>
+                        </td>
+                        <td>
+                            <h3>{{ $administrador->cpf }}</h3>
+                        </td>
+                        <td>
+                            <h3>{{ $administrador->usuario }}</h3>
+                        </td>
+                        <td>
+                            <h3>{{ $administrador->status }}</h3>
+                        </td>
+                        <td>
                             <form action="{{ route('administrador.remove', ['id' => $administrador->id]) }}" method="GET">
                                 <button type="submit">Remover</button>
                             </form>
                         </td>
                         <td>
-                            <button type="submit">Atualizar</button>
+                        <form action="{{ route('administrador.atualizar', ['id' => $administrador->id]) }}" method="GET">
+                                <button type="submit">Atualizar</button>
+                        </form>
                         </td>
                     </tr>
                 @endforeach

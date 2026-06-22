@@ -21,6 +21,8 @@
     <table border="1">
         <tr>
             <td>Nome do Componente</td>
+            <td>Hora Inicio</td>
+            <td>Hora Fim</td>
             <td colspan="2">Ações</td>
         </tr>
         @isset($componentes)
@@ -28,6 +30,8 @@
                     <tr>
                         <td>
                             <h3>{{ $componente->nome }}</h3>
+                            <td><h3>{{ $componente->hora_inicio }}</h3></td>
+                           <td><h3>{{ $componente->hora_fim }}</h3></td>
                         </td>
                         <td>
                             <form action="{{ route('componente.remove', ['id' => $componente->id]) }}" method="GET">
@@ -35,7 +39,9 @@
                             </form>
                         </td>
                         <td>
-                            <button type="submit">Atualizar</button>
+                        <form action="{{ route('componente.atualizar', ['id' => $componente->id]) }}" method="GET">
+                                <button type="submit">Atualizar</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
