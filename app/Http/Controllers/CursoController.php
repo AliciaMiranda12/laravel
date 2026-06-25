@@ -3,31 +3,62 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CursoController extends Controller
 {
-    function inicial(){ 
-        return view('curso.inicial');
-    }
+    function index(){ 
+        $curso = new \App\Models\CursoModel();
 
-    function add(Request $dados) { 
+        return view('curso.index', ['cursos'=>$curso::all()]);
+    }
+    function add(Request $dados ) {
+        $validator = Validator::make(
+            $dados->all(),
+              [
+                  'nome' => 'required|min:3|max:255',
+                  'periodo' => 'required|min:4|max:255',
+
+              ],
+              [
+                  'nome.required' => 'O campo nome é obrigatório.',
+                  'nome.min' => 'O campo nome deve conter no mínimo 3 caracteres.',
+                  'nome.max' => 'O campo nome deve conter no máximo 255 caracteres.',
+              ],
+              [
+                'periodo.required' => 'O campo é obrigatorio. ',
+                'periodo.min' => 'O campo periodo deve ter no mínimo 4. ',
+                'periodo.max' => 'O campo periodo deve ter no máximo 255. ',
+              ]
+      );
+
+      if ($validator->fails()) {
+          return redirect()
+              ->route('curso.index')
+              ->withErrors($validator)
+              ->withInput();
+      }
         $curso = new \App\Models\CursoModel();
         $curso::create($dados->all());
 
-				//RECUPERANDO TODOS ALUNOS DO BANCO E ENVIANDO PARA A VIEW
-				
-        $cursos = new \App\Models\CursoModel();
 
-        return view('curso.inicial', ['success'=>'Cadastrado!', 'cursos'=>$cursos::all()]);
+
+        
+        $curso = new \App\Models\CursoModel();
+
+        return view('curso.index', ['sucesso'=>'Cadastrado!', 'curso' =>$curso::all()]);
+    
     }
+
 
     function remove(string $id) {
         $curso = new \App\Models\CursoModel();
         $curso::destroy($id);
 
-        return view('curso.inicial', ['success'=>'Removido!', 'cursos'=>$curso::all()]);
+        return view('curso.index', ['success'=>'Removido!', 'curso'=>$curso::all()]);
 
     }
+
     function atualizar(string $id) {
         $curso = new \App\Models\CursoModel();
         $curso = $curso::find($id);
@@ -40,6 +71,6 @@ class CursoController extends Controller
         $curso = $curso::find($dados->id);
         $curso->update($dados->all());
 
-        return view('curso.inicial', ['success'=>'Atualizado!', 'cursos'=>$curso::all()]);
+        return view('curso.index', ['success'=>'Atualizado!', 'cursos'=>$curso::all()]);
     }
 }

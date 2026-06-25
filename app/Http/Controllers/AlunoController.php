@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AlunoController extends Controller
 {
@@ -12,16 +13,36 @@ class AlunoController extends Controller
         return view('aluno.index', ['alunos'=>$aluno::all()]);
     }
 
-    function add(Request $dados) { 
+    function add (Request $dados) {
+        $validator = Validator::make(
+            $dados->all(),
+              [
+                  'nome' => 'required|min:3|max:255',
+              ],
+              [
+                  'nome.required' => 'O campo nome é obrigatório.',
+                  'nome.min' => 'O campo nome deve conter no mínimo 3 caracteres.',
+                  'nome.max' => 'O campo nome deve conter no máximo 255 caracteres.',
+              ]
+      );
+
+      if ($validator->fails()) {
+          return redirect()
+              ->route('aluno.index')
+              ->withErrors($validator)
+              ->withInput();
+      }
         $aluno = new \App\Models\AlunoModel();
         $aluno::create($dados->all());
 
-      
-        $alunos = new \App\Models\AlunoModel();
+        //Recuperando todos os alunos do banco e enviando para A View
 
-        return view('aluno.index', ['success'=>'Cadastrado!', 'alunos'=>$alunos::all()]);
+        $aluno = new \App\Models\AlunoModel();
+
+        return view('aluno.index', ['sucesso'=>'Cadastrado!', 'alunos' =>$aluno::all()]);
+    
     }
-
+    
     function remove(string $id) {
         $aluno = new \App\Models\AlunoModel();
         $aluno::destroy($id);
@@ -44,5 +65,5 @@ class AlunoController extends Controller
 
         return view('aluno.index', ['success'=>'Atualizado!', 'alunos'=>$aluno::all()]);
     }
-}
 
+}

@@ -2,20 +2,28 @@
     <form action="{{ route('curso.add') }}" method="post">
         @csrf
         <label for="nome">Nome</label>
-        <input type="text" name="nome" id="nome">
-
+        <input type="text" name="nome" id="nome" value="{{ old('nome') }}">
+       
         <label for="periodo">Periodo</label>
-        <input type="text" name="periodo" id="periodo">
+        <input type="time" name="periodo" id="periodo"  value="{{ old('periodo') }}">
 
         <button type="submit">Salvar</button>
-        @isset($success)
-            <h1>{{ $success }}</h1>
-        @endisset
-    </form>
-    <table border="1">
+
+    @isset($sucess)
+    <h1> {{$sucess}} </h1>
+    @endisset
+    @if($errors->any())
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+</form> 
+
+<table border="1">
         <tr>
-            <td>Nome do Curso</td>
-            <td>Período</td>
+            <td>Nome do Aluno</td>
             <td colspan="2">Ações</td>
         </tr>
         @isset($cursos)
@@ -28,9 +36,9 @@
                             <h3>{{ $curso->periodo }}</h3>
                         </td>
                         <td>
-                            <form action="{{ route('curso.remove', ['id' => $curso->id]) }}" method="GET">
+                        <form action="{{ route('curso.remove', ['id' => $curso->id]) }}" method="GET">
                                 <button type="submit">Remover</button>
-                            </form>
+                            </form> 
                         </td>
                         <td>
                         <form action="{{ route('curso.atualizar', ['id' => $curso->id]) }}" method="GET">
@@ -41,5 +49,5 @@
                 @endforeach
         @endisset
     </table>
+    
 </div>
-

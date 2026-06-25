@@ -25,7 +25,7 @@ Route::prefix('/aluno')->group(function(){
 }); 
 
 Route::prefix('/curso')->group(function(){
-    Route::get('/inicial', [App\Http\Controllers\CursoController::class, 'inicial'])->name('curso.inicial');
+    Route::get('/index', [App\Http\Controllers\CursoController::class, 'index'])->name('curso.index');
     Route::post('/add', [App\Http\Controllers\CursoController::class, 'add'])->name('curso.add');
     Route::get('/remove/{id}', [App\Http\Controllers\CursoController::class, 'remove'])->name('curso.remove');
     Route::get('/atualizar/{id}', [App\Http\Controllers\CursoController::class, 'atualizar'])->name('curso.atualizar');

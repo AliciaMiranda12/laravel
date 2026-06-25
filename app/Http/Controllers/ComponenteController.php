@@ -3,19 +3,57 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ComponenteController extends Controller
 {
+   
     function index(){ 
-        return view('componente.index');
+        $componente = new \App\Models\ComponenteModel();
+
+        return view('componente.index', ['componentes'=>$componente::all()]);
     }
 
     function add(Request $dados) { 
+
+     $validator = Validator::make(
+            $dados->all(),
+              [
+                  'nome' => 'required|min:3|max:255',
+                  'hora_inicio' => 'required|datetime',
+                  'hora_fim' => 'required|datetime',
+              ],
+              [
+                  'nome.required' => 'O campo nome é obrigatório.',
+                  'nome.min' => 'O campo nome deve conter no mínimo 3 caracteres.',
+                  'nome.max' => 'O campo nome deve conter no máximo 255 caracteres.',
+              ],
+              [
+                'hora_inicio.required' => 'O campo hora_inicio é obrigatório.',          
+             ],
+              [
+                'hora_fim.required' => 'O campo hora_fim é obrigatório.',
+ 
+            ]
+      );
+
+      if ($validator->fails()) {
+          return redirect()
+              ->route('componente.index')
+              ->withErrors($validator)
+              ->withInput();
+      }
+        $componente = new \App\Models\ComponenteModel();
+
+        return view('componente.index', ['componentes'=>$componente::all()]);
+    
+    
+
+
         $componente = new \App\Models\ComponenteModel();
         $componente::create($dados->all());
 
-				//RECUPERANDO TODOS ALUNOS DO BANCO E ENVIANDO PARA A VIEW
-				
+        //RECUPERANDO TODOS OS COMPONENTES DO BANCO E ENVIANDO PARA A VIEW
         $componentes = new \App\Models\ComponenteModel();
 
         return view('componente.index', ['success'=>'Cadastrado!', 'componentes'=>$componentes::all()]);
@@ -28,6 +66,7 @@ class ComponenteController extends Controller
         return view('componente.index', ['success'=>'Removido!', 'componentes'=>$componente::all()]);
 
     }
+    
     function atualizar(string $id) {
         $componente = new \App\Models\ComponenteModel();
         $componente = $componente::find($id);
@@ -42,4 +81,6 @@ class ComponenteController extends Controller
 
         return view('componente.index', ['success'=>'Atualizado!', 'componentes'=>$componente::all()]);
     }
+
+
 }
